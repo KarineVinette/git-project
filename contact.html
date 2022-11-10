@@ -24,6 +24,39 @@
         <input type="submit" value="send">
 
     </form>
-
+    <div id="myData"></div>
+    <script>
+        fetch('student.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function appendData(data) {
+            var mainContainer = document.getElementById("myData");
+            for (var i = 0; i < data.length; i++) {
+                var div = document.createElement("div");
+                div.innerHTML = 'Name: ' + data[i].name + ' ' + data[i].age;
+                mainContainer.appendChild(div);
+            }
+        }
+    </script>
+    
+    <p id="demo"></p>
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+                document.getElementById("demo").innerHTML = myObj.high;
+            }
+        };
+        xmlhttp.open("GET", "https://www.bitstamp.net/api/ticker/?u" + new Date().getTime(), true);
+        xmlhttp.send();
+    </script>
 </body>
 </html>
