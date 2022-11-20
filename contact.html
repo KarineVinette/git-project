@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>contact us</title>
+</head>
+<body>
+    <h1>Portfolio</h1>
+    <nav>
+        <a href="contact.html">Contact Us</a>
+        <a href="test.html">Skills</a>
+
+    </nav>
+    <h2>Contact us</h2>
+    <form action="get">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name">
+        <label for="email">Email:</label>
+        <input type="text" name="name" id="email">
+        <label for="message">message:</label>
+        <textarea type="text" name="name" id="message" cols="30" rows="10">  </textarea>
+        <input type="submit" value="send">
+
+    </form>
+    <div id="myData"></div>
+    <script>
+        fetch('student.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function appendData(data) {
+            var mainContainer = document.getElementById("myData");
+            for (var i = 0; i < data.length; i++) {
+                var div = document.createElement("div");
+                div.innerHTML = 'Name: ' + data[i].name + ' ' + data[i].age;
+                mainContainer.appendChild(div);
+            }
+        }
+    </script>
+    
+    <p id="demo"></p>
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+                document.getElementById("demo").innerHTML = myObj.high;
+            }
+        };
+        xmlhttp.open("GET", "https://www.bitstamp.net/api/ticker/?u" + new Date().getTime(), true);
+        xmlhttp.send();
+    </script>
+</body>
+</html>
